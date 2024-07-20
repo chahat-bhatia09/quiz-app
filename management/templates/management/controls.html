@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Controls{% endblock %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+  <div class="row mt-5 justify-content-center">
+    <h1 class="text-center">Control Panel</h1>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card mt-3">
+        <div class="card-body">
+          <!-- Define panel options directly in the template -->
+          <div class="row mt-3 align-items-center">
+            <div class="col-6">
+              <h3>Verify Questions</h3>
+            </div>
+            <div class="col-3">
+              <a class="btn btn-custom w-100" href="{% url 'verify_question' %}" role="button">Verify</a>
+            </div>
+          </div>
+
+          <div class="row mt-3 align-items-center">
+            <div class="col-6">
+              <h3>View History</h3>
+            </div>
+            <div class="col-3">
+              <a class="btn btn-custom w-100" href="{% url 'results' %}" role="button">View</a>
+            </div>
+          </div>
+
+<!--          <div class="mt-5">-->
+<!--            <form action="{% url 'setting' %}" method="post">-->
+<!--              {% csrf_token %}-->
+<!--              <div class="row mt-3 align-items-center">-->
+<!--                <div class="col-md-6 d-flex align-items-center">-->
+<!--                  <h3 class="mb-0">Specify number of new questions</h3>-->
+<!--                </div>-->
+<!--                <div class="col-md-3">-->
+<!--                  <input type="number" min="1" max="10" value="{{ question_limit }}" name="qlimit" class="form-control text-center">-->
+<!--                </div>-->
+<!--                <div class="col-md-3">-->
+<!--                  <button type="submit" class="btn btn-custom w-100">Save Changes</button>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </form>-->
+<!--          </div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

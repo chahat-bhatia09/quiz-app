@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-body">
+          {% if user.is_authenticated %}
+            {% if user.is_staff %}
+              <h2>Hello Staff Member {{ user.username|title }} 👋</h2>
+              <p class="lead">Manage quizzes, track results with this quiz management system.</p>
+              <p>Whether you're looking to create educational quizzes, or wanting to test your knowledge, this platform provides the tools you need.</p>
+              <p>As a staff member, you have additional privileges:</p>
+              <ul>
+                <li>You have a control panel.</li>
+                <li>You can verify questions.</li>
+                <li>You can set questionnaires.</li>
+                <li>You can decide the number of questions.</li>
+                <li>You can check user history.</li>
+                <li>You can view the scoresheet.</li>
+              </ul>
+              <p>Continue to control panel? <a href="{% url 'controls' %}" class="btn btn-custom">Click Here</a></p>
+            {% else %}
+              <h2>Hello {{ user.username|title }} 👋</h2>
+              <h4>Welcome to Quiz Management System</h4>
+              <p class="lead">Manage quizzes, track results, and engage your audience with this quiz management system.</p>
+              <p>Whether you're looking to create educational quizzes, or wanting to test your knowledge, this platform provides the tools you need.</p>
+              <p>Key features:</p>
+              <ul>
+                <li>Create quizzes easily.</li>
+                <li>Track quiz results to check your performance.</li>
+                <li>Leaderboard to check results.</li>
+                <li>User-friendly interface for smooth navigation.</li>
+                <li>Secure login and authentication.</li>
+                <li>Keep track on your timing.</li>
+              </ul>
+              <p>Continue to quiz? <a href="{% url 'quiz' %}" class="btn btn-custom">Click Here</a></p>
+            {% endif %}
+          {% else %}
+            <h3>Hello User 👋</h3>
+            <h4>Welcome to Quiz Management System</h4>
+            <p class="lead">Manage quizzes, track results, and engage your audience with this quiz management system.</p>
+            <p>Whether you're looking to create educational quizzes, or wanting to test your knowledge, this platform provides the tools you need.</p>
+            <p>Key features:</p>
+            <ul>
+              <li>Create quizzes easily.</li>
+              <li>Track quiz results to check your performance.</li>
+              <li>Leaderboard to check results.</li>
+              <li>User-friendly interface for smooth navigation.</li>
+              <li>Secure login and authentication.</li>
+              <li>Keep track on your timing.</li>
+            </ul>
+            <p>Ready to get started? <a href="{% url 'register' %}" class="btn btn-custom">Sign Up Now</a></p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

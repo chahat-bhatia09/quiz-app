@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Add Questions{% endblock %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <form method="post" action="{% url 'add_question' %}">
+        {% csrf_token %}
+        <h1 class="text-center">Add New Questions Here</h1>
+        <br><br>
+        {% for i in questions %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="InputQuestion{{ i }}" class="form-label">Question</label>
+              <input type="text" class="form-control" id="InputQuestion{{ i }}" name="q{{ i }}" placeholder="Type your question here" required autofocus>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Enter option A" name="q{{ i }}o1" required>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Enter option B" name="q{{ i }}o2" required>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Enter option C" name="q{{ i }}o3" required>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Enter option D" name="q{{ i }}o4" required>
+              </div>
+            </div>
+            <br>
+            <select class="form-select" name="q{{ i }}c" required>
+              <option selected disabled value=''>Choose Correct Option</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+            </select>
+          </div>
+        </div>
+        {% endfor %}
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+          <label class="form-check-label" for="exampleCheck1">Yes, I am sure</label>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-custom">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

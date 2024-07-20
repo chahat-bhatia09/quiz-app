@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
+  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+  <link href="{% static 'css/layout.css' %}" rel="stylesheet">
+  <title>{% block title %}{% endblock %} | Quiz</title>
+  <style>
+    {% block style %}{% endblock %}
+    body {
+      background-color: #293241;
+      color: #e0fbfc;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Ensure full height of viewport */
+      margin: 0;
+    }
+    .navbar-dark .navbar-nav .nav-link {
+      color: #98c1d9;
+    }
+    .navbar-dark .navbar-nav .nav-link:hover {
+      background-color: #293241;
+    }
+    .navbar-dark .navbar-brand {
+      color: #e0fbfc;
+    }
+    .navbar-dark .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%2898,193,217, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+    .navbar-dark.bg-dark {
+      background-color: #3d5a80 !important;
+    }
+    .alert-dismissible .btn-close {
+      color: #293241;
+    }
+    .alert {
+      color: #e0fbfc;
+    }
+    #content-wrapper {
+      flex: 1;
+      padding-bottom: 60px; /* Adjust this value according to footer height */
+    }
+    .footer {
+      background-color: #1a2b48;
+      color: #e0fbfc;
+      padding: 20px 0;
+      text-align: center;
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+    }
+    .footer a {
+      color: #98c1d9;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    .btn-custom {
+      background-color: #3d5a80;
+      border-color: #3d5a80;
+      color: #e0fbfc;
+    }
+    .btn-custom:hover {
+      background-color: #202c4c;
+      border-color: #293241;
+      color: #e0fbfc;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Quiz Management App</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          {% if request.user.is_authenticated %}
+          {% if request.user.is_staff %}
+          <li class="nav-item">
+            <a class="nav-link text-center" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-center" href="{% url 'controls' %}">Controls</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-center" href="{% url 'add_question' %}">Questionnaire</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-center" href="{% url 'scoresheet' %}">Score Sheet</a>
+          </li>
+
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link text-center" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-center" href="{% url 'quiz' %}">Quiz</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-center" href="{% url 'attempts' %}">Result</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link text-center" href="{% url 'logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link text-center" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-center" href="{% url 'login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-center" href="{% url 'register' %}">Register</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>{{ message.tags|upper }}!</strong> {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  <div id="content-wrapper">
+    {% block body %}{% endblock %}
+  </div>
+  <footer class="footer">
+    <div class="container">
+      <p>
+        <a href="#">About Us</a> |
+        <a href="#">Contact Us</a> |
+        <a href="#">Code of Conduct</a> |
+        <a href="#">Our Team</a> |
+        <a href="#">Diversity Statement</a> |
+        <a href="#">Contribute</a> |
+        <a href="#">Merchandise</a> |
+        <a href="#">Privacy Policy</a> |
+        <a href="#">Terms of Service</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>
